@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -7,7 +7,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\Sport_store\Sport_store.csproj"/>
+		<ProjectReference Include="..\Sport store\Sport store.csproj"/>
 	</ItemGroup>
 
   <ItemGroup>
