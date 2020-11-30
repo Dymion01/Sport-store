@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sport_store.Controllers
 {
-    public class ProductController
+    public class ProductController : Controller
     {
         private IProductRepository _repository;
         public ProductController(IProductRepository repository)
