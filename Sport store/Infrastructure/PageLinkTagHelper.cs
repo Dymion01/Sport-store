@@ -7,8 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Xrm.Sdk.Query;
-using Sport_store.Models;
+using Sport_store.Models.ViewModels;
 
 
 namespace Sport_store.Infrastructure
@@ -26,7 +25,7 @@ namespace Sport_store.Infrastructure
         [ViewContext]
         [HtmlAttributeNotBound]
         public ViewContext ViewContext { get; set; }
-        public Models.PagingInfo PageModel { get; set; }
+        public PagingInfo PageModel { get; set; }
         public string PageAction { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
