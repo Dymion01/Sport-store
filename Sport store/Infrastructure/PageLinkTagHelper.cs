@@ -40,6 +40,7 @@ namespace Sport_store.Infrastructure
                 result.InnerHtml.AppendHtml(tag);
             }
             output.Content.AppendHtml(result.InnerHtml);
+            
         }
     }
 }
