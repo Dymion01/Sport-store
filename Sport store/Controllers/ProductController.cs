@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Sport_store.Models;
 using Sport_store.Models.ViewModels;
 using System;
@@ -18,11 +19,12 @@ namespace Sport_store.Controllers
 
         }
 
-        public ViewResult List(Category category, int productPage = 1)
+        public ViewResult List(string category, int productPage = 1)
            => View(new ProductsListViewModel
            {
                Products = _repository.Products
-                .Where(p => p.Category == null || p.Category == category)
+                .Where(p => p.Category == null || p.Category.Name == category)
+                .Include(t => t.Category)
                 .OrderBy(p => p.Id)
                 .Skip((productPage - 1) * PageSize)
                 .Take(PageSize),
@@ -33,6 +35,8 @@ namespace Sport_store.Controllers
                    TotalItems = _repository.Products.Count()
                },
                CurrentCategory = category
+               
+               
            });
                 
     }
