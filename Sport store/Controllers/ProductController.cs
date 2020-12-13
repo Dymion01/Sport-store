@@ -23,7 +23,7 @@ namespace Sport_store.Controllers
            => View(new ProductsListViewModel
            {
                Products = _repository.Products
-                .Where(p => p.Category == null || p.Category.Name == category)
+                .Where(p => String.IsNullOrEmpty(category) || p.Category.Name == category)
                 .Include(t => t.Category)
                 .OrderBy(p => p.Id)
                 .Skip((productPage - 1) * PageSize)
@@ -32,11 +32,14 @@ namespace Sport_store.Controllers
                {
                    CurrentPage = productPage,
                    ItemsPerPage = PageSize,
-                   TotalItems = _repository.Products.Count()
+                   TotalItems = string.IsNullOrEmpty(category) ?
+                        _repository.Products.Count(): 
+                        _repository.Products.Where(e => e.Category.Name == category).Count()
+
                },
                CurrentCategory = category
-               
-               
+
+
            });
                 
     }
