@@ -3,12 +3,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Sport_store.Models.ViewModels;
-using System.Collections.Generic;
 
 
 namespace Sport_store.Infrastructure
@@ -44,8 +40,8 @@ namespace Sport_store.Infrastructure
             {
                 TagBuilder tag = new TagBuilder("a");
                 PageUrlValues["productPage"] = i;
-                //tag.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
-                tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = i });
+                tag.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
+                //tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = i });
                 if (PageClassesEnabled)
                 {
                     tag.AddCssClass(PageClass);

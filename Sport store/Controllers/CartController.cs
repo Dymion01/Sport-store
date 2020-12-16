@@ -6,23 +6,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Sport_store.Models.ViewModels;
 
 namespace Sport_store.Controllers
 {
     public class CartController : Controller
     {
         private IProductRepository repository;
-        
+
         public CartController(IProductRepository repo)
         {
             repository = repo;
         }
 
-        public RedirectToActionResult AddToCard(int productId, string returnUrl)
+        public ViewResult Index(string returnUrl)
         {
-            Product product = repository.Products.FirstOrDefault(p => p.Id == productId);
+            return View(new CartIndexViewModel
+            {
+                Cart = GetCart(),
+                ReturnUrl = returnUrl
+            });
+        }
 
-            if(product != null)
+        public RedirectToActionResult AddToCart(int Id, string returnUrl)
+        {
+            Product product = repository.Products.FirstOrDefault(p => p.Id == Id);
+
+            if (product != null)
             {
                 Cart cart = GetCart();
                 cart.AddItem(product, 1);
@@ -31,11 +41,11 @@ namespace Sport_store.Controllers
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public RedirectToActionResult RemoveFromCart(int productId , string returnUrl)
+        public RedirectToActionResult RemoveFromCart(int productId, string returnUrl)
         {
             Product product = repository.Products.FirstOrDefault(p => p.Id == productId);
 
-            if(product != null)
+            if (product != null)
             {
                 Cart cart = GetCart();
                 cart.RemoveItem(product);
