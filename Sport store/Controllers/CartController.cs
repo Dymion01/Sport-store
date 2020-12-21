@@ -10,6 +10,7 @@ using Sport_store.Models.ViewModels;
 
 namespace Sport_store.Controllers
 {
+
     public class CartController : Controller
     {
         private IProductRepository repository;
@@ -19,7 +20,7 @@ namespace Sport_store.Controllers
             repository = repo;
         }
 
-        public ViewResult Index(string returnUrl)
+        public IActionResult Index(string returnUrl)
         {
             return View(new CartIndexViewModel
             {
@@ -66,4 +67,5 @@ namespace Sport_store.Controllers
             HttpContext.Session.SetJson("Cart", cart);
         }
     }
+
 }

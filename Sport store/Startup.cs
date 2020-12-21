@@ -10,6 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sport_store.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using System.IO;
+using Microsoft.OpenApi.Models;
 
 namespace Sport_store
 {
@@ -29,6 +32,31 @@ namespace Sport_store
             services.AddMvc();
             services.AddMemoryCache();
             services.AddSession();
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "SportStore API",
+                    Description = "SportStore ASP.NET Core Web API",
+                    
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Damian Skorupa",
+                        Email = "nietwojasprawa@gmail.com",
+                        
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Use under LICX",
+                        Url = new Uri("https://example.com/license"),
+                    }
+                });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +67,15 @@ namespace Sport_store
             app.UseStaticFiles();
             app.UseRouting();
             app.UseSession();
+            app.UseSwagger();
+            
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = "api";
+            });
+
             app.UseEndpoints(endpoints =>
             {
 

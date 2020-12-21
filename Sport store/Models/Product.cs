@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Sport_store.Models
 {
+    /// <summary>
+    /// definicja produktu
+    /// </summary>
     public class Product
     {
         public int Id { get; set; }
@@ -13,5 +16,6 @@ namespace Sport_store.Models
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+
     }
 }

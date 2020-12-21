@@ -17,14 +17,14 @@ namespace Sport_store.Test
         {
             // arrange
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
-            mock.Setup(m => m.Products).Returns((new Product[]
+            mock.Setup(m => m.Products).Returns(new Product[]
             {
                 new Product {Id = 1 , Name = "P1"},
                 new Product {Id = 2 , Name = "P2"},
                 new Product {Id = 3 , Name = "P3"},
                 new Product {Id = 4 , Name = "P4"},
                 new Product {Id = 5 , Name = "P5"}
-            }).AsQueryable<Product>());
+            }.AsQueryable<Product>());
 
             ProductController controller = new ProductController(mock.Object);
             controller.PageSize = 3;
@@ -71,16 +71,19 @@ namespace Sport_store.Test
         public void Can_Fillter_Products()
         {
             // arrange
-            
-             Mock<IProductRepository> mock = new Mock<IProductRepository>();
+       
+            Category cat1 = new Category { CategoryId = 1, Name = "Cat1" };
+            Category cat2 = new Category { CategoryId = 2, Name = "Cat2" };
+            Category cat3 = new Category { CategoryId = 3, Name = "Cat3" };
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
             mock.Setup(m => m.Products).Returns((new Product[5] {
-                new Product { Id = 1, Name = "P1", Category = {CategoryId =1 ,Name = "Cat1" } },
-                new Product { Id = 2, Name = "P2", Category = {CategoryId =2 ,Name = "Cat2" } },
-                new Product { Id = 3, Name = "P3", Category = {CategoryId =1 ,Name = "Cat1" } },
-                new Product { Id = 4, Name = "P4", Category = {CategoryId =2 ,Name = "Cat2" } },
-                new Product { Id = 5, Name = "P5", Category = {CategoryId =3 ,Name = "Cat3" } }
+                new Product { Id = 1, Name = "P1", Category =cat1 },
+                new Product { Id = 2, Name = "P2", Category =cat2 },
+                new Product { Id = 3, Name = "P3", Category =cat1 },
+                new Product { Id = 4, Name = "P4", Category =cat2 },
+                new Product { Id = 5, Name = "P5", Category =cat3 }
             }).AsQueryable<Product>());
-
+            
 
             // arrange 
             ProductController controller = new ProductController(mock.Object);
@@ -93,6 +96,53 @@ namespace Sport_store.Test
             Assert.Equal(2, result.Length);
             Assert.True(result[0].Name == "P2" && result[0].Category.Name == "Cat2");
             Assert.True(result[1].Name == "P4" && result[1].Category.Name == "Cat2");
+        }
+
+        [Fact]
+        public void Get_Product_By_Id()
+        {
+            //arrange
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns(new Product[]
+            {
+                new Product {Id = 1 , Name = "P1"},
+                new Product {Id = 2 , Name = "P2"},
+                new Product {Id = 3 , Name = "P3"},
+                new Product {Id = 4 , Name = "P4"},
+                new Product {Id = 5 , Name = "P5"}
+            }.AsQueryable<Product>());
+
+            ProductController controller = new ProductController(mock.Object);
+            //act
+            var result = controller.GetProductById(2);
+
+            //assert
+            Assert.Equal("P2", result.Name);
+        }
+
+        [Theory]
+        [InlineData(1, "P1")]
+        [InlineData(2, "P2")]
+        [InlineData(3, "P3")]
+        public void Get_Product_By_Id2(int id, string name)
+        {
+            //arrange
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns(new Product[]
+            {
+                new Product {Id = 1 , Name = "P1"},
+                new Product {Id = 2 , Name = "P2"},
+                new Product {Id = 3 , Name = "P3"},
+                new Product {Id = 4 , Name = "P4"},
+                new Product {Id = 5 , Name = "P5"}
+            }.AsQueryable<Product>());
+
+            ProductController controller = new ProductController(mock.Object);
+            //act
+            var result = controller.GetProductById(id);
+
+            //assert
+            Assert.Equal(name, result.Name);
         }
     }
 }

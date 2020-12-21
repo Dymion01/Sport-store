@@ -41,6 +41,10 @@ namespace Sport_store.Controllers
 
 
            });
-                
+       public Product GetProductById(int productId)
+        {
+            Product product = _repository.Products.Where(x => x.Id == productId).FirstOrDefault();
+            return product;
+        } 
     }
 }
