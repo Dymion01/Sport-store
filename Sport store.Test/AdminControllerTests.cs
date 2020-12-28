@@ -34,6 +34,48 @@ namespace Sport_store.Test
             Assert.Equal("P2", result[1].Name);
             Assert.Equal("P3", result[2].Name);
         }
+        [Fact]
+        public void Can_Edit_Product()
+        {
+            //arrange
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns(new Product[]
+            {
+                new Product {Id = 1 , Name = "P1"},
+                new Product {Id = 2 , Name = "P2"},
+                new Product {Id = 3 , Name = "P3"},
+            }.AsQueryable<Product>());
+
+            AdminController target = new AdminController(mock.Object);
+            //act
+            Product p1 = GetViewModel<Product>(target.Edit(1));
+            Product p2 = GetViewModel<Product>(target.Edit(2));
+            Product p3 = GetViewModel<Product>(target.Edit(3));
+            //assert
+            Assert.Equal(1, p1.Id);
+            Assert.Equal(2, p2.Id);
+            Assert.Equal(3, p3.Id);
+
+        }
+        
+        [Fact]
+        public void Cannot_Edit_Nonexistent_Product()
+        {
+            //arrange
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns(new Product[]
+            {
+                new Product {Id = 1 , Name = "P1"},
+                new Product {Id = 2 , Name = "P2"},
+                new Product {Id = 3 , Name = "P3"},
+            }.AsQueryable<Product>());
+
+            AdminController target = new AdminController(mock.Object);
+            //act
+            Product result = GetViewModel<Product>(target.Edit(4));
+            //assert
+            Assert.Null(result);
+        }
            private T GetViewModel<T>(IActionResult result) where T : class
             {
                 return (result as ViewResult)?.ViewData.Model as T;
