@@ -6,17 +6,6 @@
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="CartSummary.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="CartSummary.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Sport store\Sport store.csproj" />
 	</ItemGroup>
