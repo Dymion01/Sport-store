@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Sport_store.Models;
 using Sport_store.Controllers;
 using Xunit;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Sport_store.Test
 {
@@ -79,6 +80,50 @@ namespace Sport_store.Test
            private T GetViewModel<T>(IActionResult result) where T : class
             {
                 return (result as ViewResult)?.ViewData.Model as T;
-            }               
+            }  
+        
+        [Fact]
+        public void Can_Save_Valid_Changes()
+        {
+            //arrange
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+
+            Mock<ITempDataDictionary> tempData = new Mock<ITempDataDictionary>();
+
+            AdminController target = new AdminController(mock.Object)
+            {
+                TempData = tempData.Object
+            };
+            Product product = new Product { Name = "Test" };
+
+            //act
+            IActionResult result = target.Edit(product);
+            //assert
+            Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("Index", (result as RedirectToActionResult).ActionName);
+            
+        }
+
+        [Fact]
+        public void Cannot_Save_Invalid_Changes()
+        {
+            //arrange
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+
+            AdminController target = new AdminController(mock.Object);
+
+            Product product = new Product { Name = "Test" };
+
+            target.ModelState.AddModelError("error", "error");
+
+            //act
+            IActionResult result = target.Edit(product);
+
+            //assert
+            mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never());
+
+            Assert.IsType<ViewResult>(result);
+
+        }
     }
 }
