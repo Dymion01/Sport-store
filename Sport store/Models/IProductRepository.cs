@@ -11,5 +11,7 @@ namespace Sport_store.Models
         IQueryable<Category> Categories { get; }
 
         void SaveProduct(Product product);
+
+        Product DeleteProduct(int productID);
     }
 }

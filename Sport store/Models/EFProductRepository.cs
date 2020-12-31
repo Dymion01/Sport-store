@@ -21,7 +21,7 @@ namespace Sport_store.Models
             Category EditedCategory;
             if (Categories.Any(c=>c.Name == product.Category.Name)){
                 EditedCategory = Categories.FirstOrDefault(c => c.Name == product.Category.Name);
-           }
+            }
             else
             {
                 context.Category.Add(new Category { Name = product.Category.Name });
@@ -44,6 +44,16 @@ namespace Sport_store.Models
                 }
             }
             context.SaveChanges();
+        }
+        public Product DeleteProduct(int productID)
+        {
+            Product dbEntry = context.Products.FirstOrDefault(p => p.Id == productID);
+            if (dbEntry != null)
+            {
+                context.Products.Remove(dbEntry);
+                context.SaveChanges();
+            }
+            return dbEntry;
         }
     }
 }
