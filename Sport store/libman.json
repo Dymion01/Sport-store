@@ -6,10 +6,7 @@
       "library": "twitter-bootstrap@4.5.3",
       "destination": "lib/twitter-bootstrap/"
     }
-  ,
-{
-  "library": "twitter-bootstrap@4.5.3",
-  "destination": "lib/twitter-bootstrap/"
-}
+  
+
 ]
 }
