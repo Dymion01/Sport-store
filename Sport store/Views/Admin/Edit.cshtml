@@ -1,10 +1,9 @@
 ﻿@model Product
 
 @{
-    ViewBag.Title = "Edycja produktu";
     Layout = "_AdminLayout";
 }
-<div class="bg-dark p-2 "><h4 class="text-light">@ViewBag.EditOrCreate</h4></div>
+
 <form asp-action="Edit" method="post">
     <input type="hidden" asp-for="Id" />
     <div class="form-group">

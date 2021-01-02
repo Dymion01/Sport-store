@@ -16,13 +16,22 @@ namespace Sport_store.Controllers
             repository = repo;
             categories = repo.Categories.ToArray();
         }
-        public ViewResult Index() => View(repository.Products);
-        
-        public ViewResult Edit(int productId) => View(repository.Products.FirstOrDefault(p => p.Id == productId));
+        public ViewResult Index()
+        {
+            @TempData["title"] = "Wszystkie produkty";
+            return View(repository.Products);
+        }
+
+        public ViewResult Edit(int productId)
+        {
+            TempData["title"] = "Edycja produktu";
+            return View(repository.Products.FirstOrDefault(p => p.Id == productId)); 
+        }
 
         [HttpPost]
         public IActionResult Edit(Product product)
         {
+
             if (ModelState.IsValid)
             {
                 repository.SaveProduct(product);
@@ -37,7 +46,8 @@ namespace Sport_store.Controllers
 
         public ViewResult Create() 
         {
-            ViewBag.EditOrCreate = "Dodaj nowy produkt";
+            TempData["title"] = "Dodaj nowy produkt";
+            //ViewBag.Title = "Dodaj nowy produkt";
            return View("Edit", new Product());
         }
 
