@@ -16,6 +16,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
 </head>
 <body class="m-1 p-1">
+
+        <div class="col">
+        <a class="btn btn-sm btn-primary" asp-action="Logout" asp-controller="Account">Wyloguj</a>
+
+    </div>
     <div class="bg-dark p-2 "><h4 class="text-light">@TempData["title"]</h4></div>
     @if(TempData["message"] != null)
     {

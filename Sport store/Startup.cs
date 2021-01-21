@@ -77,6 +77,7 @@ namespace Sport_store
             app.UseSession();
             app.UseSwagger();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseSwaggerUI(c =>
             {
