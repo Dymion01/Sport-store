@@ -4,12 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace Sport_store.Models
 {
 
     public class Product
     {
+      
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Proszę podać nazwę produktu")]
@@ -25,6 +28,7 @@ namespace Sport_store.Models
         [Display(Name = "Cena")]
         public decimal Price { get; set; }
 
+       
         public int CategoryId { get; set; }
 
         [Required(ErrorMessage = "Proszę określić kategorię.")]

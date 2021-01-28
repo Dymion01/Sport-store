@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace Sport_store.Models
 {
     public class Category
     {
+        [JsonIgnore]
         public int CategoryId { get; set; }
         [Required(ErrorMessage = "Proszę określić kategorię.")]
         [Display(Name = "Kategoria")]

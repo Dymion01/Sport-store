@@ -30,6 +30,7 @@ namespace Sport_store.Models
             }
             if(product.Id == 0)
             {
+                product.Category = EditedCategory;
                 context.Products.Add(product);
             }
             else
@@ -56,4 +57,5 @@ namespace Sport_store.Models
             return dbEntry;
         }
     }
+
 }

@@ -8,5 +8,15 @@
     }
   
 
+,
+{
+  "provider": "unpkg",
+  "library": "@microsoft/signalr@latest",
+  "destination": "wwwroot/js/signaler/",
+  "files": [
+    "dist/browser/signalr.js",
+    "dist/browser/signalr.min.js"
+  ]
+}
 ]
 }

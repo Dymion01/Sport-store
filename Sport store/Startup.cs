@@ -14,6 +14,7 @@ using System.Reflection;
 using System.IO;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Identity;
+using Sport_store.Hubs;
 
 namespace Sport_store
 {
@@ -41,6 +42,7 @@ namespace Sport_store
             services.AddMemoryCache();
             services.AddSession();
             services.AddControllers();
+            services.AddSignalR();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -107,6 +109,7 @@ namespace Sport_store
                 endpoints.MapControllerRoute(
                     name: default,
                     pattern: "{controller=Product}/{action=List}/{id?}");
+                endpoints.MapHub<ChatHub>("/chathub");
 
             });
             SeedData.EnsurePopulated(app);
